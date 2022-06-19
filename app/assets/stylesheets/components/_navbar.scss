@@ -10,3 +10,17 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.letter-avatar {
+  display: flex;
+  height: 40px;
+  background: #94a89a;
+  border-radius: 50%;
+  color: white;
+  font-weight: 600;
+}
