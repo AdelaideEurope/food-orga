@@ -1,5 +1,8 @@
 {
   "name": "food_orga",
+  "engines": {
+    "node": "12.15.x"
+  },
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.5",

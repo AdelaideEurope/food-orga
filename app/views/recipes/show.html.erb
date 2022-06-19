@@ -1,6 +1,15 @@
-<div>
-  <%= @recipe.name %>
+<div class="container mt-3 mb-3">
+  <div>
+    <h1><%= @recipe.name.capitalize %></h1>
+  </div>
+  <%= cl_image_tag(@recipe.photo.key, width: 400, height: 300, crop: :fill) %>
+  <h2 class="mt-3">Ingrédients</h2>
+  <ul>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <li><%= ingredient.name %></li>
+    <% end %>
+  </ul>
+
+  <h2>Préparation</h2>
+  <%= sanitize @recipe.preparation.gsub(/\n/, '<br/>').html_safe %>
 </div>
-<% @recipe.ingredients.each do |ingredient| %>
-  <div><%= ingredient.name %></div>
-<% end %>

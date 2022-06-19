@@ -2,6 +2,7 @@
   <% @ingredients.each do |ingredient| %>
     <li>
       <%= ingredient.name %>
+      <%= cl_image_tag(ingredient.photo.key, height: 100, crop: :fill) %>
     </li>
   <% end %>
 </ul>
