@@ -1,7 +1,7 @@
 {
   "name": "food_orga",
-  "engines": {
-    "node": "12.15.x"
+  "engines" : {
+    "node" : ">=14.x"
   },
   "private": true,
   "dependencies": {
