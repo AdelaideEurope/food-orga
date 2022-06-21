@@ -1,0 +1,24 @@
+<div class="container mt-3 mb-3">
+  <div>
+    <h1>Composer un menu</h1>
+  </div>
+  <div>
+    <%= simple_form_for(@menu) do |f| %>
+      <div class="mb-3">
+        <%= f.input :meal_count, type: "number", label: "Nombre de repas" %>
+      </div>
+      <div class="mb-3">
+        <%= f.input :person_per_meal, type: "number", label: "Personnes par repas" %>
+      </div>
+      <div class="mb-3">
+        <%= f.association :ingredients, as: :check_boxes, collection: @ingredients, label: "Ingrédients à inclure" %>
+      </div>
+      <div class="mt-2">
+        <%= f.button :submit, "Créer" %>
+      </div>
+    <% end %>
+  </div>
+
+<!--       <%= simple_fields_for :options do |option| %>
+        <%= option.input :added_by, required: false, collection: @users, label: "Recette ajoutée par" %>
+      <% end %> -->

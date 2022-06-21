@@ -1,2 +1,43 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container mt-3 mb-3">
+  <h1>Semaine du <%= @current_menu.created_at.strftime('%d/%m') %></h1>
+  <ul class="nav nav-pills" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="recipe-tab" data-bs-toggle="tab" data-bs-target="#recipe" type="button" role="tab" aria-controls="recipe" aria-selected="true">Recettes</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="to-buy-tab" data-bs-toggle="tab" data-bs-target="#to-buy" type="button" role="tab" aria-controls="to-buy" aria-selected="false">À acheter</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active mt-3" id="recipe" role="tabpanel" aria-labelledby="recipe-tab">
+      <% @current_menu.recipe_menus.each do |recipe_menu| %>
+        <div>
+          <div><%= recipe_menu.day_of_week %></div>
+          <div>
+            <div>
+              <%= link_to recipe_path(recipe_menu.recipe) do %>
+                <% if recipe_menu.recipe.photo.attached? %>
+                  <%= cl_image_tag(recipe_menu.recipe.photo.key, height: 200, crop: :fill) %>
+                <% end %>
+              </div>
+              <div>
+                <%= recipe_menu.recipe.name.capitalize %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="tab-pane fade mt-3" id="to-buy" role="tabpanel" aria-labelledby="to-buy-tab">
+      <% @ingredients_with_quantity.each do |ingredient_id, values| %>
+        <%= values[:ingredient].name %> : <%= values[:quantity] %> <%= values[:unit] %>
+        <div>
+          <% if values[:ingredient].photo.attached? %>
+            <%= cl_image_tag(values[:ingredient].photo.key, height: 100) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

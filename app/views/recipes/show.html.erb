@@ -2,14 +2,28 @@
   <div>
     <h1><%= @recipe.name.capitalize %></h1>
   </div>
-  <%= cl_image_tag(@recipe.photo.key, width: 400, height: 300, crop: :fill) %>
+  <% if @recipe.photo.attached? %>
+    <%= cl_image_tag(@recipe.photo.key, height: 200, crop: :fill) %>
+  <% end %>
+  <div class="mt-3">
+    <%= link_to recipe_add_to_latest_menu_path(@recipe), method: :post do %>
+      <button>Ajouter au dernier menu</button>
+    <% end %>
+  </div>
   <h2 class="mt-3">Ingrédients</h2>
+  <h3>Pour <%= @recipe.person_count %> personnes </h3>
   <ul>
-    <% @recipe.ingredients.each do |ingredient| %>
-      <li><%= ingredient.name %></li>
+    <% @recipe.recipe_ingredients.each do |recipe_ingredient| %>
+      <li><%= recipe_ingredient.quantity %> <%= recipe_ingredient.unit %> - <%= recipe_ingredient.ingredient.name %></li>
     <% end %>
   </ul>
 
   <h2>Préparation</h2>
+  <h4>Temps total : <%= formatted_duration(@recipe.total_duration) %></h4>
+  <div class="mb-3">
+    <div>Préparation : <%= formatted_duration(@recipe.preparation_duration) %></div>
+    <div>Repos : <%= formatted_duration(@recipe.resting_duration) %></div>
+    <div>Cuisson : <%= formatted_duration(@recipe.cooking_duration) %></div>
+  </div>
   <%= sanitize @recipe.preparation.gsub(/\n/, '<br/>').html_safe %>
 </div>

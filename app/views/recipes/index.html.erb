@@ -1,9 +1,21 @@
-<ul>
-  <% @recipes.each do |recipe| %>
-    <li>
-      <%= link_to recipe_path(recipe) do %>
-        <%= recipe.name %>
-      <% end %>
-    </li>
+<div class="container mt-3 mb-3">
+  <h1>Chercher une recette</h1>
+  <%= form_tag recipes_path, method: :get do %>
+    <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Chercher une recette" %>
+    <%= submit_tag "Chercher", class: "btn btn-primary mt-2" %>
   <% end %>
-</ul>
+  <% if params[:query] %>
+    <h1 class="mt-3"><%= pluralize(@recipe_count, "recette", "recettes") %></h1>
+  <% else %>
+    <h1 class="mt-3">Toutes les recettes</h1>
+  <% end %>
+  <ul>
+    <% @recipes.each do |recipe| %>
+      <li>
+        <%= link_to recipe_path(recipe) do %>
+          <%= recipe.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

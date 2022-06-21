@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_19_113924) do
+ActiveRecord::Schema.define(version: 2022_06_20_223038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,16 +44,34 @@ ActiveRecord::Schema.define(version: 2022_06_19_113924) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "menus", force: :cascade do |t|
+    t.datetime "date"
+    t.integer "meal_count"
+    t.integer "person_per_meal"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id", null: false
     t.bigint "ingredient_id", null: false
-    t.string "quantity"
+    t.integer "quantity"
     t.string "unit"
     t.string "can_be_replaced_with"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
     t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
+  end
+
+  create_table "recipe_menus", force: :cascade do |t|
+    t.bigint "menu_id", null: false
+    t.bigint "recipe_id", null: false
+    t.string "day_of_week"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_id"], name: "index_recipe_menus_on_menu_id"
+    t.index ["recipe_id"], name: "index_recipe_menus_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -72,6 +90,7 @@ ActiveRecord::Schema.define(version: 2022_06_19_113924) do
     t.text "preparation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "added_by"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,6 +101,7 @@ ActiveRecord::Schema.define(version: 2022_06_19_113924) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -89,4 +109,6 @@ ActiveRecord::Schema.define(version: 2022_06_19_113924) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "recipe_ingredients", "ingredients"
   add_foreign_key "recipe_ingredients", "recipes"
+  add_foreign_key "recipe_menus", "menus"
+  add_foreign_key "recipe_menus", "recipes"
 end

@@ -1,0 +1,18 @@
+<div class="container mt-3 mb-3">
+  <div>
+    <h1><%= @ingredient.name.capitalize %></h1>
+  </div>
+  <% if @ingredient.photo.attached? %>
+    <%= cl_image_tag(@ingredient.photo.key, height: 100) %>
+  <% end %>
+  <h2 class="mt-3">Recettes</h2>
+  <ul>
+    <% @ingredient.recipes.each do |recipe| %>
+      <li>
+        <%= link_to recipe_path(recipe) do %>
+          <%= recipe.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

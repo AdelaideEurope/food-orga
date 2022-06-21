@@ -11,7 +11,10 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
+            <%= link_to "Menu de la semaine", root_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Composer un menu", new_menu_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "Recettes", recipes_path, class: "nav-link" %>
